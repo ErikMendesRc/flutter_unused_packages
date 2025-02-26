@@ -1,6 +1,6 @@
 name: flutter_unused_packages
 description: “A CLI tool to scan, detect and remove unused dependencies in Flutter projects, improving code organization.”
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/ErikMendesRC/flutter_unused_packages
 homepage: https://github.com/ErikMendesRC/flutter_unused_packages
 issue_tracker: https://github.com/ErikMendesRC/flutter_unused_packages/issues
