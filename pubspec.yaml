@@ -35,8 +35,6 @@ topics:
   - analysis
   - dependencies
   - cleanup
-  - optimization
-  - best-practices
 
 screenshots:
   - description: "Detect and remove unused dependencies in your Flutter project"
