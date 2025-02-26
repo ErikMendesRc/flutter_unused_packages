@@ -11,44 +11,46 @@ import 'package:flutter_unused_packages/application/usecases/analyze_dependencie
 
 /// List of essential dependencies that should never be removed.
 const Set<String> protectedDependencies = {
-  'flutter',            // Flutter SDK
-  'flutter_test',       // Required for Flutter unit tests
-  'flutter_lints',      // Official Flutter linting rules
-  'cupertino_icons',    // Common icon package for Flutter projects
+  'flutter', // Flutter SDK
+  'flutter_test', // Required for Flutter unit tests
+  'flutter_lints', // Official Flutter linting rules
+  'cupertino_icons', // Common icon package for Flutter projects
 };
 
 void main(List<String> args) async {
-  final parser = ArgParser()
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      negatable: false,
-      help: 'Show usage information.',
-    )
-    ..addFlag(
-      'init',
-      abbr: 'i',
-      negatable: false,
-      help: 'Generates a default config file (analize_unused_packages.json).',
-    )
-    ..addFlag(
-      'analyze',
-      abbr: 'a',
-      negatable: false,
-      help: 'Analyzes unused dependencies in the project.',
-    )
-    ..addFlag(
-      'fix',
-      abbr: 'f',
-      negatable: false,
-      help: 'Automatically removes unused dependencies.',
-    )
-    ..addOption(
-      'config',
-      abbr: 'c',
-      defaultsTo: 'analize_unused_packages.json',
-      help: 'Path to the JSON configuration file.',
-    );
+  final parser =
+      ArgParser()
+        ..addFlag(
+          'help',
+          abbr: 'h',
+          negatable: false,
+          help: 'Show usage information.',
+        )
+        ..addFlag(
+          'init',
+          abbr: 'i',
+          negatable: false,
+          help:
+              'Generates a default config file (analize_unused_packages.json).',
+        )
+        ..addFlag(
+          'analyze',
+          abbr: 'a',
+          negatable: false,
+          help: 'Analyzes unused dependencies in the project.',
+        )
+        ..addFlag(
+          'fix',
+          abbr: 'f',
+          negatable: false,
+          help: 'Automatically removes unused dependencies.',
+        )
+        ..addOption(
+          'config',
+          abbr: 'c',
+          defaultsTo: 'analize_unused_packages.json',
+          help: 'Path to the JSON configuration file.',
+        );
 
   final results = parser.parse(args);
 
@@ -111,16 +113,20 @@ void _generateDefaultConfigFile(String configPath) {
       "ios",
       "linux",
       "macos",
-      "windows"
-    ]
+      "windows",
+    ],
   };
 
   if (file.existsSync()) {
-    print('⚠️ The file "$configPath" already exists. Please edit it manually if you wish to change the directories.');
+    print(
+      '⚠️ The file "$configPath" already exists. Please edit it manually if you wish to change the directories.',
+    );
     return;
   }
 
-  file.writeAsStringSync(const JsonEncoder.withIndent('  ').convert(defaultConfig));
+  file.writeAsStringSync(
+    const JsonEncoder.withIndent('  ').convert(defaultConfig),
+  );
   print('✅ File "$configPath" has been successfully created.');
 }
 
@@ -151,10 +157,14 @@ Future<void> _runAnalysis(String configFile, {bool fix = false}) async {
   }
 
   // 5. Filter out protected dependencies
-  final dependenciesToRemove = unusedDependencies.difference(protectedDependencies);
+  final dependenciesToRemove = unusedDependencies.difference(
+    protectedDependencies,
+  );
 
   if (dependenciesToRemove.isEmpty) {
-    print('⚠️ No dependencies were removed because all detected dependencies are essential.');
+    print(
+      '⚠️ No dependencies were removed because all detected dependencies are essential.',
+    );
     return;
   }
 
@@ -166,7 +176,10 @@ Future<void> _runAnalysis(String configFile, {bool fix = false}) async {
   // 6. If --fix is enabled, remove unused dependencies (excluding protected ones)
   if (fix) {
     print('🛠 Removing unused dependencies...');
-    await useCase.execute(fix: true, dependenciesToRemove: dependenciesToRemove);
+    await useCase.execute(
+      fix: true,
+      dependenciesToRemove: dependenciesToRemove,
+    );
     print('✅ Unused dependencies removed successfully!');
   }
 }

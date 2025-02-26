@@ -19,18 +19,23 @@ void main() {
 
   /// Test that all dependencies listed in `pubspec.yaml` are correctly returned
   test('Should return all dependencies correctly', () async {
-    when(repository.getAllDependencies())
-        .thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
+    when(
+      repository.getAllDependencies(),
+    ).thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
 
     final dependencies = await repository.getAllDependencies();
-    
-    expect(dependencies, containsAll({'http', 'provider', 'shared_preferences'}));
+
+    expect(
+      dependencies,
+      containsAll({'http', 'provider', 'shared_preferences'}),
+    );
   });
 
   /// Test that the method correctly identifies the dependencies that are actually used in the project
   test('Should correctly identify used dependencies', () async {
-    when(repository.getUsedDependencies())
-        .thenAnswer((_) async => {'http', 'provider'});
+    when(
+      repository.getUsedDependencies(),
+    ).thenAnswer((_) async => {'http', 'provider'});
 
     final usedDependencies = await repository.getUsedDependencies();
 
@@ -40,11 +45,11 @@ void main() {
 
   /// Test that unused dependencies are correctly detected by comparing all dependencies vs used ones
   test('Should correctly detect unused dependencies', () async {
-    when(repository.getAllDependencies())
-        .thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
+    when(
+      repository.getAllDependencies(),
+    ).thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
 
-    when(repository.getUsedDependencies())
-        .thenAnswer((_) async => {'http'});
+    when(repository.getUsedDependencies()).thenAnswer((_) async => {'http'});
 
     final unusedDependencies = await analyzeDependencies.execute();
 
@@ -55,39 +60,48 @@ void main() {
 
   /// Test that unused dependencies are correctly removed when `fix` is enabled
   test('Should correctly remove unused dependencies', () async {
-    when(repository.getAllDependencies())
-        .thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
+    when(
+      repository.getAllDependencies(),
+    ).thenAnswer((_) async => {'http', 'provider', 'shared_preferences'});
 
-    when(repository.getUsedDependencies())
-        .thenAnswer((_) async => {'http'});
+    when(repository.getUsedDependencies()).thenAnswer((_) async => {'http'});
 
-    when(repository.removeUnusedDependencies(captureAny)).thenAnswer((_) async => Future.value());
+    when(
+      repository.removeUnusedDependencies(captureAny),
+    ).thenAnswer((_) async => Future.value());
 
     final unusedDependencies = await analyzeDependencies.execute(fix: true);
 
     expect(unusedDependencies, containsAll({'provider', 'shared_preferences'}));
-    
-    verify(repository.removeUnusedDependencies({'provider', 'shared_preferences'})).called(1);
+
+    verify(
+      repository.removeUnusedDependencies({'provider', 'shared_preferences'}),
+    ).called(1);
   });
 
   /// Test that protected dependencies (e.g., `flutter`) are never removed
   test('Should not remove protected dependencies', () async {
-    when(repository.getAllDependencies())
-        .thenAnswer((_) async => {'flutter', 'http', 'provider'});
+    when(
+      repository.getAllDependencies(),
+    ).thenAnswer((_) async => {'flutter', 'http', 'provider'});
 
-    when(repository.getUsedDependencies())
-        .thenAnswer((_) async => {'flutter'});
+    when(repository.getUsedDependencies()).thenAnswer((_) async => {'flutter'});
 
     final unusedDependencies = await analyzeDependencies.execute();
 
     expect(unusedDependencies, contains('http'));
     expect(unusedDependencies, contains('provider'));
-    expect(unusedDependencies, isNot(contains('flutter'))); // `flutter` is a protected dependency
+    expect(
+      unusedDependencies,
+      isNot(contains('flutter')),
+    ); // `flutter` is a protected dependency
   });
 
   /// Test that an exception is correctly handled when `pubspec.yaml` cannot be read
   test('Should correctly handle an error when reading pubspec.yaml', () async {
-    when(repository.getAllDependencies()).thenThrow(Exception('Error reading pubspec.yaml'));
+    when(
+      repository.getAllDependencies(),
+    ).thenThrow(Exception('Error reading pubspec.yaml'));
 
     expect(() async => await analyzeDependencies.execute(), throwsException);
   });
