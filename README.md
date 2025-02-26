@@ -10,6 +10,25 @@
   <img src="assets/logo.jpg" alt="flutter_unused_packages logo" width="300" />
 </p>
 
+> **⚠️ Important:**  
+> This tool is **not meant to be used inside Flutter applications**.  
+> It is designed **exclusively for development environments**.
+
+---
+
+## **🖥️ Supported Platforms**
+✅ **This CLI runs on:**  
+- ✅ **Windows**  
+- ✅ **Linux**  
+- ✅ **macOS**  
+
+🚫 **Not compatible with:**  
+- ❌ **Android**  
+- ❌ **iOS**  
+- ❌ **Web**  
+
+---
+
 ## 📌 Overview
 **flutter_unused_packages** is a highly efficient CLI tool designed to analyze, detect, and safely remove unused dependencies in **Flutter** projects. By helping to keep your **pubspec.yaml** clean, this tool can improve project maintainability and prevent potential version conflicts.
 
@@ -146,14 +165,6 @@ We appreciate all contributions! If you want to:
 
 ---
 
-## 💬 Community & Support
-Have questions? Need help?
-- Open an [Issue](https://github.com/ErikMendesRC/flutter_unused_packages/issues)
-- Ask in the [Wiki](https://github.com/ErikMendesRC/flutter_unused_packages/wiki)
-- Reach out via [Discussions](https://github.com/ErikMendesRC/flutter_unused_packages/discussions) (if enabled)
-
----
-
 ## 🔥 Show Your Support
 If you find **flutter_unused_packages** helpful, please leave a ⭐ and share it with others to help grow our community!
 
@@ -162,4 +173,4 @@ If you find **flutter_unused_packages** helpful, please leave a ⭐ and share it
 ## 📜 License
 **flutter_unused_packages** is licensed under the [MIT License](LICENSE). 
 
-&copy; 2025 [ERIK MENDES](https://github.com/ErikMendesRC/).
+© 2025 [ERIK MENDES](https://github.com/ErikMendesRC/).
