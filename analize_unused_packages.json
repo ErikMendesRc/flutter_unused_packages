@@ -1,0 +1,16 @@
+{
+  "directories_to_analyze": [
+    "lib",
+    "bin",
+    "test"
+  ],
+  "directories_to_ignore": [
+    "build",
+    ".dart_tool",
+    "android",
+    "ios",
+    "linux",
+    "macos",
+    "windows"
+  ]
+}
